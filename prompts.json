@@ -1,0 +1,54 @@
+{
+    "prompts": [
+        {
+            "title": "Code Explainer",
+            "text": "Explain the following code in detail, highlighting its purpose, key functionality, and any potential issues: [PASTE CODE HERE]",
+            "category": "Coding"
+        },
+        {
+            "title": "Improve My Code",
+            "text": "Review this code and suggest improvements for readability, performance, and best practices: [PASTE CODE HERE]",
+            "category": "Coding"
+        },
+        {
+            "title": "Debugging Helper",
+            "text": "I'm getting the following error with my code. Help me understand the issue and fix it: [PASTE CODE AND ERROR HERE]",
+            "category": "Coding"
+        },
+        {
+            "title": "Explain Like I'm 5",
+            "text": "Explain [TOPIC] in the simplest terms possible, as if you were talking to a 5-year-old.",
+            "category": "Learning"
+        },
+        {
+            "title": "Academic Writer",
+            "text": "Write an academic paragraph about [TOPIC] with proper citations and scholarly tone.",
+            "category": "Writing"
+        },
+        {
+            "title": "Brainstorm Ideas",
+            "text": "Help me brainstorm 10 creative ideas for [PROJECT/TOPIC].",
+            "category": "Creativity"
+        },
+        {
+            "title": "Pros and Cons",
+            "text": "List the pros and cons of [TOPIC/DECISION], considering various perspectives.",
+            "category": "Analysis"
+        },
+        {
+            "title": "Email Composer",
+            "text": "Draft a professional email to [RECIPIENT] about [TOPIC]. The tone should be [TONE].",
+            "category": "Communication"
+        },
+        {
+            "title": "Interview Prep",
+            "text": "Prepare me for an interview for [POSITION] with possible questions and suggested answers.",
+            "category": "Career"
+        },
+        {
+            "title": "Learning Plan",
+            "text": "Create a structured learning plan for me to master [SKILL/TOPIC] in [TIMEFRAME].",
+            "category": "Learning"
+        }
+    ]
+}
