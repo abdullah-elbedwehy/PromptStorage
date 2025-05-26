@@ -1,0 +1,63 @@
+{
+  "WDXGI": [
+    {
+      "name": "access_token",
+      "value": "eyJhbGciOiJFUzI1NiIsImtpZCI6ImE1YmE3NjY3LWU5OTgtNDMzMS1iZjk1LWIwMTdmYzM0ODE0ZCIsInR5cCI6IkpXVCJ9.eyJtb2RlIjoiYWNjZXNzIiwidHlwZSI6InVzZXIiLCJwcm9wZXJ0aWVzIjp7ImVtYWlsIjoiY29wdGNoYXJtQGdtYWlsLmNvbSIsIm5hbWUiOiJjb3B0Y2hhcm0iLCJwaWN0dXJlIjoiaHR0cHM6Ly9saDMuZ29vZ2xldXNlcmNvbnRlbnQuY29tL2EvQUNnOG9jSjNLbEU0U2hjU2NBdXJtdU1DRVAzakF3YVJhNlJHWTJzYkNxcVdrX2hzTEJQMEJBPXM5Ni1jIiwiaWQiOiJnb29nbGU6MTEwOTMxMDYyNjYwMzY5NTAyNjMxIn0sImF1ZCI6Im5leHRqcyIsImlzcyI6Imh0dHBzOi8vYXV0aC50My5jaGF0Iiwic3ViIjoiZ29vZ2xlOjExMDkzMTA2MjY2MDM2OTUwMjYzMSIsImV4cCI6MTc1MDgzNjY0Ni45MTR9.fB3XYZLWXXsv6hWn7gbrd2XNhYAWvmNK8kjRppNNwiWq6buJ_yi1aD_IMYOMKOvDoktmlci5-l1OvyxJOKtxpA",
+      "domain": "t3.chat",
+      "hostOnly": true,
+      "path": "/",
+      "secure": false,
+      "httpOnly": false,
+      "sameSite": "lax",
+      "session": false,
+      "firstPartyDomain": "",
+      "partitionKey": null,
+      "expirationDate": 1782804644,
+      "storeId": null
+    },
+    {
+      "name": "ph_phc_St8GLxd9HHhrWYzmDb12BLIKgtJ7SReL74DvOClrQ0U_posthog",
+      "value": "%7B%22distinct_id%22%3A%22google%3A110931062660369502631%22%2C%22%24sesid%22%3A%5B1748245422666%2C%2201970b80-47c4-765e-8f64-68a30dfca368%22%2C1748244645828%5D%2C%22%24epp%22%3Atrue%2C%22%24initial_person_info%22%3A%7B%22r%22%3A%22https%3A%2F%2Faccounts.google.com%2F%22%2C%22u%22%3A%22https%3A%2F%2Ft3.chat%2Fauth%2Fcomplete%22%7D%7D",
+      "domain": ".t3.chat",
+      "hostOnly": false,
+      "path": "/",
+      "secure": true,
+      "httpOnly": false,
+      "sameSite": "lax",
+      "session": false,
+      "firstPartyDomain": "",
+      "partitionKey": null,
+      "expirationDate": 1779781422,
+      "storeId": null
+    },
+    {
+      "name": "refresh_token",
+      "value": "google%3A110931062660369502631%3Ab889a999-0ed8-413a-bf6c-8e7bbc162dd2",
+      "domain": "t3.chat",
+      "hostOnly": true,
+      "path": "/",
+      "secure": false,
+      "httpOnly": true,
+      "sameSite": "lax",
+      "session": false,
+      "firstPartyDomain": "",
+      "partitionKey": null,
+      "expirationDate": 1782804644,
+      "storeId": null
+    },
+    {
+      "name": "ver",
+      "value": "4ee3d81542489a76bf7dceaf747cdada%3A04d1f2e424283adc9756a48c79b8bce11a5a817771e9450af26af581ac37b5f42337f7f7c4cc5f5af8506c1cd18decd6",
+      "domain": "t3.chat",
+      "hostOnly": true,
+      "path": "/",
+      "secure": true,
+      "httpOnly": true,
+      "sameSite": "strict",
+      "session": true,
+      "firstPartyDomain": "",
+      "partitionKey": null,
+      "storeId": null
+    }
+  ]
+}
