@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>T3 Account Adder</title>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --accent-from:#7f1dff;
+      --accent-to:#d926a9;
+      --bg-from:#0c0b11;
+      --bg-to:#1a1522;
+      --text-main:#e5e5e5;
+      --text-faded:#a7a5b0;
+    }
+    html,body{height:100%;margin:0;padding:0;font-family:'Inter',sans-serif;}
+    body{
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      background:linear-gradient(145deg,var(--bg-from),var(--bg-to));
+      color:var(--text-main);
+      padding:1rem;
+    }
+    main{
+      text-align:center;
+      width:100%;
+      max-width:28rem;
+    }
+    h1{
+      font-size:2.5rem;
+      font-weight:700;
+      margin-bottom:2rem;
+    }
+    .cta-btn{
+      display:block;
+      width:100%;
+      max-width:20rem;
+      margin:0 auto 1rem;
+      padding:.75rem 1rem;
+      font-size:1rem;
+      font-weight:600;
+      color:#fff;
+      background:linear-gradient(135deg,var(--accent-from),var(--accent-to));
+      border:none;
+      border-radius:.75rem;
+      text-decoration:none;
+      box-shadow:0 4px 12px rgba(0,0,0,.25);
+      transition:transform .18s ease,box-shadow .18s ease;
+    }
+    .cta-btn:hover{
+      transform:translateY(-3px);
+      box-shadow:0 8px 18px rgba(0,0,0,.35);
+    }
+    .unsupported{
+      font-weight:600;
+      color:#ff5757;
+      margin-top:1rem;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>T3 Account</h1>
+    <div id="actions"><!-- Buttons inserted here --></div>
+    <div id="fallback" class="unsupported" hidden>Your browser is not supported 🤔</div>
+  </main>
+  <script>
+    document.addEventListener('DOMContentLoaded',()=>{
+      const ua = navigator.userAgent;
+      let browser='unknown';
+      if(/Firefox/i.test(ua))      browser='firefox';
+      else if(/OPR|Opera/i.test(ua))browser='opera';
+      else if(/Edg/i.test(ua))      browser='edge';
+      else if(/Chrome/i.test(ua))   browser='chrome';
+      else if(/Safari/i.test(ua) && !/(Chrome|CriOS|Edg|OPR)/i.test(ua)) browser='safari';
+
+      const tmLinks={
+        chrome :'https://chromewebstore.google.com/detail/tampermonkey/dhdgffkkebhmkfjojejmpbldmpobfkfo',
+        edge   :'https://microsoftedge.microsoft.com/addons/detail/tampermonkey/iikmkjmpaadaobahmlepeloendndfphd',
+        firefox:'https://addons.mozilla.org/en-US/firefox/addon/tampermonkey/',
+        opera  :'https://addons.opera.com/en/extensions/details/tampermonkey-beta/',
+        safari :'https://apps.apple.com/us/app/tampermonkey-classic/id1482490089'
+      };
+      const scriptLink='https://github.com/abdullah-elbedwehy/PromptStorage/raw/refs/heads/main/script.user.js';
+      const actions=document.getElementById('actions');
+      const fallback=document.getElementById('fallback');
+
+      if(tmLinks[browser]){
+        const step1=document.createElement('a');
+        step1.href=tmLinks[browser]; step1.target='_blank'; step1.rel='noopener';
+        step1.className='cta-btn'; step1.textContent='Install Tampermonkey';
+
+        const step2=document.createElement('a');
+        step2.href=scriptLink; step2.target='_blank'; step2.rel='noopener';
+        step2.className='cta-btn'; step2.textContent='Install T3 Account Adder';
+
+        const step3=document.createElement('a');
+        step3.href='https://t3.chat/'; step3.target='_blank'; step3.rel='noopener';
+        step3.className='cta-btn'; step3.textContent='Go to T3.chat';
+
+        actions.append(step1, step2, step3);
+      } else {
+        fallback.hidden=false;
+      }
+    });
+  </script>
+</body>
+</html>
