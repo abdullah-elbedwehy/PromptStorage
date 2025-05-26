@@ -1,8 +1,8 @@
 // ==UserScript==
-// @name         t3.chat/auth – Login Using Cookies by ID (Enhanced UI)
+// @name         t3.chat/auth
 // @namespace    https://t3.chat
-// @version      3.1
-// @description  Adds a button to login by fetching cookies from a URL, using an enhanced custom HTML modal for ID input and feedback.
+// @version      3.2
+// @description  Adds a button to login by fetching cookies from a URL, using an enhanced custom HTML modal for ID input and feedback. (Comments removed)
 // @match        https://t3.chat/auth
 // @run-at       document-idle
 // @grant        none
@@ -14,7 +14,6 @@
     const COOKIE_DATA_URL = "https://raw.githubusercontent.com/abdullah-elbedwehy/PromptStorage/refs/heads/main/data.json";
     let allCookieData = {};
 
-    // —— 0. CSS Styles for Modal ——
     function addModalStyles() {
         const style = document.createElement('style');
         style.textContent = `
@@ -32,99 +31,98 @@
                 font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
             }
             .tm-modal-content {
-                background-color: #282c34; /* Darker, modern background */
-                color: #abb2bf; /* Softer light text for general content */
-                padding: 1.5rem; /* 24px */
-                border-radius: 0.5rem; /* 8px, Tailwind 'rounded-lg' */
-                box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.2), 0 4px 6px -4px rgba(0, 0, 0, 0.2); /* Enhanced shadow */
+                background-color: #282c34; 
+                color: #abb2bf; 
+                padding: 1.5rem; 
+                border-radius: 0.5rem; 
+                box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.2), 0 4px 6px -4px rgba(0, 0, 0, 0.2); 
                 width: 90%;
                 max-width: 450px;
                 text-align: left;
             }
             .tm-modal-title {
-                font-size: 1.25rem; /* text-xl */
-                font-weight: 600; /* font-semibold */
-                margin-bottom: 1rem; /* 16px */
-                color: #e5e7eb; /* Lighter gray for titles */
+                font-size: 1.25rem; 
+                font-weight: 600; 
+                margin-bottom: 1rem; 
+                color: #e5e7eb; 
             }
             .tm-modal-input {
-                width: calc(100% - 2rem); /* padding 1rem left/right */
-                padding: 0.75rem 1rem; /* py-3 px-4 */
-                margin-bottom: 1.25rem; /* 20px */
-                border: 1px solid #4b5563; /* gray-600 border */
-                border-radius: 0.375rem; /* 6px, Tailwind 'rounded-md' */
-                font-size: 0.875rem; /* text-sm */
-                background-color: #1e2127; /* Darker input background */
-                color: #e5e7eb; /* Light text for input */
+                width: calc(100% - 2rem); 
+                padding: 0.75rem 1rem; 
+                margin-bottom: 1.25rem; 
+                border: 1px solid #4b5563; 
+                border-radius: 0.375rem; 
+                font-size: 0.875rem; 
+                background-color: #1e2127; 
+                color: #e5e7eb; 
                 transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
             }
             .tm-modal-input:focus {
-                border-color: #a23b67; /* Primary pinkish color from original button */
+                border-color: #a23b67; 
                 box-shadow: 0 0 0 0.2rem rgba(162, 59, 103, 0.35);
                 outline: none;
             }
             .tm-modal-buttons-container {
                 display: flex;
-                justify-content: flex-end; /* Align buttons to the right */
-                gap: 0.75rem; /* 12px space between buttons */
+                justify-content: flex-end; 
+                gap: 0.75rem; 
             }
             .tm-modal-button {
                 display: inline-flex;
                 align-items: center;
                 justify-content: center;
-                padding: 0.625rem 1rem; /* py-2.5 px-4, slightly adjusted for text-sm */
+                padding: 0.625rem 1rem; 
                 border: none;
-                border-radius: 0.375rem; /* rounded-md */
+                border-radius: 0.375rem; 
                 cursor: pointer;
-                font-size: 0.875rem; /* text-sm */
-                font-weight: 500; /* font-medium */
+                font-size: 0.875rem; 
+                font-weight: 500; 
                 transition: background-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
                 line-height: 1.25rem;
             }
             .tm-modal-submit-button {
-                background-color: #a23b67; /* Primary pink */
+                background-color: #a23b67; 
                 color: white;
             }
             .tm-modal-submit-button:hover {
-                background-color: #db2777; /* Tailwind pink-600, brighter hover */
+                background-color: #db2777; 
             }
             .tm-modal-close-button {
-                background-color: #4b5563; /* gray-600 */
-                color: #e5e7eb; /* Light text */
+                background-color: #4b5563; 
+                color: #e5e7eb; 
             }
             .tm-modal-close-button:hover {
-                background-color: #6b7280; /* gray-500 */
+                background-color: #6b7280; 
             }
             .tm-modal-message-area {
-                margin-top: 1rem; /* 16px */
-                margin-bottom: 1.25rem; /* Added margin below message before buttons */
-                padding: 0.75rem 1rem; /* py-3 px-4 */
-                border-radius: 0.375rem; /* rounded-md */
-                font-size: 0.875rem; /* text-sm */
-                min-height: 1.25rem; /* text-sm line height */
+                margin-top: 1rem; 
+                margin-bottom: 1.25rem; 
+                padding: 0.75rem 1rem; 
+                border-radius: 0.375rem; 
+                font-size: 0.875rem; 
+                min-height: 1.25rem; 
                 border-width: 1px;
                 border-style: solid;
             }
             .tm-modal-message-success {
                 background-color: rgba(16, 185, 129, 0.1);
-                color: #10b981; /* Tailwind green-500 */
+                color: #10b981; 
                 border-color: rgba(16, 185, 129, 0.3);
             }
             .tm-modal-message-error {
                 background-color: rgba(239, 68, 68, 0.1);
-                color: #ef4444; /* Tailwind red-500 */
+                color: #ef4444; 
                 border-color: rgba(239, 68, 68, 0.3);
             }
             .tm-modal-message-info {
                 background-color: rgba(59, 130, 246, 0.1);
-                color: #3b82f6; /* Tailwind blue-500 */
+                color: #3b82f6; 
                 border-color: rgba(59, 130, 246, 0.3);
             }
         `;
         document.head.appendChild(style);
     }
 
-    // —— 1. Fetch cookie data from URL ——
     async function fetchRemoteCookieData() {
         try {
             const response = await fetch(COOKIE_DATA_URL);
@@ -145,12 +143,10 @@
         } catch (e) {
             console.error("Exception during fetch/parse of remote cookie data:", e.message);
             allCookieData = {};
-            // Propagate error to be caught by main execution flow
             throw new Error(`Failed to load or parse cookie data: ${e.message}`);
         }
     }
 
-    // —— 2. Cookie setter helper ——
     function setCookie(c) {
         if (!c.name || typeof c.value === 'undefined') {
             console.warn("Skipping cookie with missing name or value:", c);
@@ -167,11 +163,10 @@
         document.cookie = str;
     }
 
-    // —— 3. Modal Management ——
     let modalOverlay = null;
 
     function showModal() {
-        if (modalOverlay) return; // Modal already shown
+        if (modalOverlay) return;
 
         if (Object.keys(allCookieData).length === 0) {
             console.error("Cookie data is not loaded. Cannot show modal.");
@@ -184,8 +179,6 @@
         const modalContent = document.createElement('div');
         modalContent.className = 'tm-modal-content';
 
-        // Added tm-modal-buttons-container for flex layout of buttons
-        // Moved message area above buttons
         modalContent.innerHTML = `
             <div class="tm-modal-title">Enter Cookie ID</div>
             <input type="text" id="tm-cookie-id-input" class="tm-modal-input" placeholder="e.g., WDXGI">
@@ -205,13 +198,13 @@
         document.getElementById('tm-modal-submit').addEventListener('click', handleModalSubmit);
         document.getElementById('tm-modal-close').addEventListener('click', hideModal);
         modalOverlay.addEventListener('click', function(event) {
-            if (event.target === modalOverlay) {
+            if (event.target === modalOverlay) { 
                 hideModal();
             }
         });
         inputField.addEventListener('keypress', function(event) {
             if (event.key === 'Enter') {
-                event.preventDefault();
+                event.preventDefault(); 
                 handleModalSubmit();
             }
         });
@@ -224,12 +217,12 @@
         }
     }
 
-    function displayModalMessage(message, type = 'info') {
+    function displayModalMessage(message, type = 'info') { 
         const messageArea = document.getElementById('tm-modal-message-area');
         if (messageArea) {
             messageArea.textContent = message;
             messageArea.className = `tm-modal-message-area tm-modal-message-${type}`;
-            messageArea.style.display = 'block'; // Make it visible when there's a message
+            messageArea.style.display = 'block'; 
         }
     }
 
@@ -237,7 +230,7 @@
         const cookieIdInput = document.getElementById('tm-cookie-id-input');
         const trimmedId = cookieIdInput.value.trim();
         const messageArea = document.getElementById('tm-modal-message-area');
-        messageArea.style.display = 'none'; // Hide previous message first
+        messageArea.style.display = 'none'; 
 
         if (!trimmedId) {
             displayModalMessage("Cookie ID cannot be empty.", 'error');
@@ -252,7 +245,7 @@
                 setTimeout(() => {
                     hideModal();
                     window.location.reload();
-                }, 1500);
+                }, 1500); 
             } else {
                 displayModalMessage(`Error: No cookies found for ID '${trimmedId}' or data is malformed.`, 'error');
             }
@@ -261,7 +254,6 @@
         }
     }
 
-    // —— 4. Build your new button HTML ——
     const buttonHTML = `
       <button id="tm-load-cookies-by-id"
               class="inline-flex items-center justify-center gap-3 whitespace-nowrap font-semibold rounded-lg bg-[rgb(162,59,103)] dark:bg-primary/20 dark:hover:bg-pink-800/70 p-2 shadow border-reflect button-reflect hover:bg-[#d56698] active:bg-[rgb(162,59,103)] dark:active:bg-pink-800/40 px-4 py-2 h-14 w-full text-lg text-white backdrop-blur-sm transition-all hover:shadow-lg mt-4">
@@ -272,7 +264,6 @@
       </button>
     `;
 
-    // —— 5. Inject button and define its click action ——
     function injectButtonAndSetupListener() {
         const googleBtn = document.querySelector(
             "button.inline-flex.items-center.justify-center.gap-2.whitespace-nowrap"
@@ -289,7 +280,7 @@
             newBtn.addEventListener("click", () => {
                 if (Object.keys(allCookieData).length === 0) {
                     console.error("Cookie data not available. Cannot proceed.");
-                    return;
+                    return; 
                 }
                 showModal();
             });
@@ -298,7 +289,6 @@
         }
     }
 
-    // —— 6. Main execution ——
     async function main() {
         addModalStyles();
         try {
@@ -314,7 +304,7 @@
             errorDiv.textContent = `Cookie Login Script Error: ${error.message} Check console.`;
             errorDiv.style.cssText = 'position:fixed; bottom:10px; left:10px; background-color:red; color:white; padding:10px; border-radius:5px; z-index:10001;';
             document.body.appendChild(errorDiv);
-            setTimeout(() => errorDiv.remove(), 10000);
+            setTimeout(() => errorDiv.remove(), 10000); 
         }
     }
 
